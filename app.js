@@ -4,6 +4,7 @@ const qwerty = document.getElementById("qwerty");
 const phrase = document.getElementById("phrase");
 let missed = 0;
 
+
 // Attach a event listener to the "Start Game" button to hide the start screen overlay.
 
 const startGame = document.querySelector(".btn__reset")
@@ -32,19 +33,54 @@ function getRandomPhraseAsArray(arr) {
 function addPhraseToDisplay(arr) {
     for (let i = 0; i < arr.length; i++) {
         const li = document.createElement('li');
-        const phrase = document.getElementById("phrase");
         const ul = phrase.children[0];
         li.textContent = arr[i];
         ul.appendChild(li);
-        if ( arr[i] !== " " ) {
-            li.className = "letter";
+        if (arr[i] === " ") {
+            li.className = 'space';
         } else {
-            li.classNmae = "space";
+            li.className = 'letter';
         }
     }
-};
+}
+
+const phraseArray = getRandomPhraseAsArray(phrases);
+addPhraseToDisplay(phraseArray);
 
 
+// Create a checkLetter function
 
+function checkLetter(button) {
+    const letters = document.getElementsByClassName('letter');
+    let matchingLetter = null;
+    for(let i = 0; i<letters.length; i++) {
+        if(letters[i].textContent === button.textContent) {
+            letters[i].className += 'show';
+            matchingLetter = button.textContent;
+        }
+    }
+    return matchingLetter;
+}
 
+// Add a event listener to the keyboard
 
+qwerty.addEventListener('click', (e) => {
+    const chosenButton = e.target;
+    if (chosenButton.tagName === 'BUTTON' && chosenButton.className !== 'chosen') {
+        chosenButton.className = 'chosen';
+        const letterFound = checkLetter(chosenButton);
+        if(!letterFound) {
+            const heartImages = document.getElementsByTagName('img');
+            for (let i = 0; i < heartImages.length; i++) {
+                if ( heartImages[i].src === "images/lostHeart.png") {
+                   heartImages[i].className = 'died';
+                }
+            }
+            const lostHeart = document.querySelector('img:not(.died)');
+            lostHeart.src = 'images/lostHeart.png';
+            lostHeart.className = 'died';
+            missed++;
+        }
+    }
+});
+    
