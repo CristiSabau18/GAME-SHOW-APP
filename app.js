@@ -55,7 +55,7 @@ function checkLetter(button) {
     let matchingLetter = null;
     for(let i = 0; i<letters.length; i++) {
         if(letters[i].textContent === button.textContent) {
-            letters[i].className += 'show';
+            letters[i].classList.add('show');
             matchingLetter = button.textContent;
         }
     }
@@ -83,4 +83,23 @@ qwerty.addEventListener('click', (e) => {
         }
     }
 });
+
+//checkWin function
+
+function checkWin(){
+    const letter =document.getElementsByClassName('letter');
+    const show =document.getElementsByClassName('show');
+    const message =document.getElementsByClassName('title');
+    if(letter.length ===show.length){
+        overlay.classList.add('win');
+        message[0].textContent ='CONGRATULATIONS, YOU GOT IT!!!';
+        overlay.style.display ='flex';
+    } else if(missed > 4){
+        overlay.classList.add('lose');
+        message[0].textContent ='Maybe next time...';
+        overlay.style.display ='flex';
+    }       
+}
+
+qwerty.addEventListener('click', checkWin);
     
