@@ -5,6 +5,7 @@ const phrase = document.getElementById("phrase");
 let missed = 0;
 
 
+
 // Attach a event listener to the "Start Game" button to hide the start screen overlay.
 
 const startGame = document.querySelector(".btn__reset")
@@ -17,7 +18,7 @@ const phrases = [
     'you must be the change you wish to see in the world',
     'if you can dream it you can do it',
     'it is never too late to be what you want to be',
-    'the bad news is time flies'
+    'the bad news is time flies',
 ];
 
 // Create a getRandomPgrasesAsArray function
@@ -61,6 +62,7 @@ function checkLetter(button) {
     }
     return matchingLetter;
 }
+
 
 // Add a event listener to the keyboard
 
